@@ -14,16 +14,14 @@ const mimeTypes = {
 const server = http.createServer((req, res) => {
   if (req.method === 'POST' && req.url === '/api/generate') {
     let body = '';
-    req.on('data', chunk => {
-      body += chunk;
-    });
+    req.on('data', chunk => (body += chunk));
     req.on('end', () => {
       try {
         const params = JSON.parse(body);
-        const result = generateThought(params.depth, params.personality);
+        const result = generateThought(parseInt(params.depth, 10), params.personality);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(result));
-      } catch (e) {
+      } catch {
         res.writeHead(400);
         res.end();
       }
@@ -31,11 +29,8 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // static file
   let filePath = '.' + req.url;
-  if (filePath === './') {
-    filePath = './index.html';
-  }
+  if (filePath === './') filePath = './index.html';
   const ext = path.extname(filePath);
   const contentType = mimeTypes[ext] || 'text/plain';
 
@@ -50,40 +45,36 @@ const server = http.createServer((req, res) => {
   });
 });
 
-function generateThought(depth, personality) {
+function generateThought(depth = 3, personality = 'genz') {
   const moods = ['serene', 'chaotic', 'hopeful', 'nihilistic'];
   const mood = moods[Math.floor(Math.random() * moods.length)];
-  const phrases = {
-    genz: [
-      'Yo, life be like',
-      'Real talk, fam –',
-      'No cap, but',
-      'Bruh, for real,',
-    ],
-    millennial: [
-      'So here\'s the thing –',
-      'You know, growing up we learned',
-      'Honestly, it feels like',
-      'Not gonna lie,',
-    ],
-    boomer: [
-      'Back in my day,',
-      'Let me tell you,',
-      'Here\'s a nugget of wisdom:',
-      'Sonny, remember that',
-    ],
-  };
-  const endings = [
-    'the universe never texts back.',
-    'hope is just another algorithm.',
-    'every meme fades to dust.',
-    'wisdom starts with a single typo.',
-    'we\'re all buffering, endlessly.',
-  ];
-  const start = phrases[personality][Math.floor(Math.random() * phrases[personality].length)];
-  const end = endings[Math.floor(Math.random() * endings.length)];
-  const text = `${start} ${end}`;
-  return { text, mood };
+
+  const intro = {
+    genz: ['Yo,', 'Real talk,', 'Fam,', 'Bruh,'],
+    millennial: ['So here\'s the thing,', 'Honestly,', 'Not gonna lie,', 'You know,'],
+    boomer: ['Let me tell you,', 'Back in my day,', 'Here\'s a thought:', 'Sonny,']
+  }[personality];
+
+  const middle = {
+    1: ['life is a meme,', 'the vibes are weird,', 'everything\'s low-key silly,', 'nothing is serious,'],
+    2: ['we\'re all figuring it out,', 'adulting is hard,', 'the grind never stops,', 'coffee keeps us going,'],
+    3: ['deep down we\'re just stardust,', 'time keeps slipping,', 'every choice echoes,', 'we chase meaning,'],
+    4: ['existence is a puzzle,', 'truth hides in plain sight,', 'dreams shape reality,', 'silence speaks volumes,'],
+    5: ['the cosmos watches silently,', 'infinity bends around us,', 'consciousness is a loop,', 'reality glitches sometimes,']
+  }[depth] || ['life is strange,'];
+
+  const ending = {
+    serene: ['breathe and let go.', 'just float with it.', 'peace comes quietly.', 'enjoy the stillness.'],
+    chaotic: ['everything is on fire!', 'just roll with the chaos!', 'embrace the madness!', 'nothing stays still!'],
+    hopeful: ['better days await.', 'keep moving forward.', 'the light is ahead.', 'believe in the journey.'],
+    nihilistic: ['nothing really matters.', 'it\'s all dust anyway.', 'the void is patient.', 'meaning is optional.']
+  }[mood];
+
+  const part1 = intro[Math.floor(Math.random() * intro.length)];
+  const part2 = middle[Math.floor(Math.random() * middle.length)];
+  const part3 = ending[Math.floor(Math.random() * ending.length)];
+
+  return { text: `${part1} ${part2} ${part3}`, mood };
 }
 
 server.listen(port, () => {

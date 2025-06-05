@@ -1,15 +1,20 @@
 # EchoChain
 
-This is a minimal implementation of the **EchoChain** website. It generates short "5-second thoughts" with different moods and personalities. The UI adapts to the selected personality and keeps a small history of generated thoughts.
+EchoChain is a lightweight demo that generates quick "5‑second thoughts" with playful personalities and dynamic themes.
 
-## Usage
+The app is built with vanilla Node.js and runs entirely offline. Thoughts are generated with a simple simulation, but the interface mimics a polished production feel.
 
-1. Start the server:
+## Running Locally
 
 ```bash
 node server.js
 ```
 
-2. Open `http://localhost:3000` in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser. Use the slider to choose depth and select a personality style. Press **Generate** to receive a new thought. Recent thoughts appear below the main bubble.
 
-Use the depth slider and personality radio buttons to generate a new thought. The interface text changes with the chosen personality and the last few thoughts appear below the main bubble.
+## Features
+
+- Depth levels from superficial to cosmic
+- Personality-specific microcopy (Gen Z, Millennial, Boomer)
+- Dynamic mood themes with subtle animations
+- History of the last five generated thoughts

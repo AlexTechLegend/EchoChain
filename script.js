@@ -3,10 +3,11 @@ const depthLabel = document.getElementById('depth-label');
 const generateBtn = document.getElementById('generate');
 const historyEl = document.getElementById('history');
 const personalities = document.querySelectorAll('input[name="personality"]');
+const ping = document.getElementById('ping');
 
 const microcopy = {
   genz: {
-    button: 'Hit this baddie 🚀',
+    button: 'Hit this baddie \uD83D\uDE80',
     instructions: 'Click this baddie to get your brain juice \uD83E\uDDE0\uD83D\uDCA5'
   },
   millennial: {
@@ -19,7 +20,13 @@ const microcopy = {
   }
 };
 
-const history = [];
+const history = JSON.parse(localStorage.getItem('history') || '[]');
+
+function renderHistory() {
+  historyEl.innerHTML = history
+    .map(item => `<div class="history-item ${item.mood}">${item.text}</div>`)
+    .join('');
+}
 
 function updateMicrocopy() {
   const p = document.querySelector('input[name="personality"]:checked').value;
@@ -34,12 +41,11 @@ function updateDepthLabel() {
 function addToHistory(text, mood) {
   history.unshift({ text, mood });
   if (history.length > 5) history.pop();
-  historyEl.innerHTML = history
-    .map(item => `<div class="history-item ${item.mood}">${item.text}</div>`) 
-    .join('');
+  localStorage.setItem('history', JSON.stringify(history));
+  renderHistory();
 }
 
-generateBtn.addEventListener('click', async () => {
+async function generateThought() {
   const depth = depthInput.value;
   const personality = document.querySelector('input[name="personality"]:checked').value;
   const res = await fetch('/api/generate', {
@@ -53,12 +59,17 @@ generateBtn.addEventListener('click', async () => {
     thoughtEl.className = data.mood;
     thoughtEl.textContent = data.text;
     addToHistory(data.text, data.mood);
+    ping.currentTime = 0;
+    ping.play();
   }
-});
+}
 
+generateBtn.addEventListener('click', generateThought);
 personalities.forEach(el => el.addEventListener('change', updateMicrocopy));
 depthInput.addEventListener('input', updateDepthLabel);
+
 window.addEventListener('DOMContentLoaded', () => {
   updateMicrocopy();
   updateDepthLabel();
+  renderHistory();
 });
