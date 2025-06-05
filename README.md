@@ -2,6 +2,16 @@
 
 Skeleton implementation of the EchoChain app.
 
+## Quick Setup
+
+Run `setup.sh` to clone the repo, install dependencies, build the web and desktop versions, and optionally launch the app.
+
+```bash
+./setup.sh [repo-url] [target-dir]
+```
+
+By default it clones `https://github.com/yourname/EchoChain.git` into `echochain`.
+
 ## Development
 
 1. Install dependencies (requires internet):
