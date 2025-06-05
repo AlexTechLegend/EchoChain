@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: EchoChain API
+  version: 0.1.0
+paths:
+  /api/clip:
+    post:
+      summary: Upload a clip
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Created
+  /api/next:
+    get:
+      summary: Get next clip
+      responses:
+        '200':
+          description: OK
+  /api/stats:
+    get:
+      summary: Get stats
+      responses:
+        '200':
+          description: OK
+  /api/moderate:
+    post:
+      summary: Flag clip
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK

@@ -1,0 +1,11 @@
+name = "echochain"
+compatibility_date = "2023-01-01"
+main = "src/api/index.ts"
+
+[env.dev]
+kv_namespaces = [
+  { binding = "CLIPS", id = "dev_clips" },
+  { binding = "QUEUE", id = "dev_queue" },
+  { binding = "STATS", id = "dev_stats" },
+  { binding = "MOD", id = "dev_mod" },
+]
