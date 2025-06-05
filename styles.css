@@ -1,15 +1,18 @@
 body {
-  font-family: Arial, sans-serif;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f0f0f0;
+  background: radial-gradient(circle at 50% 20%, #1a1a2e, #000);
+  color: #fff;
 }
 #app {
   text-align: center;
 }
 #logo {
+  margin-bottom: 10px;
   animation: echo 2s infinite;
 }
 @keyframes echo {
@@ -17,19 +20,50 @@ body {
   50% { opacity: 0.5; }
   100% { opacity: 1; }
 }
+#instructions {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
 #thought {
   margin-top: 20px;
   padding: 20px;
   border-radius: 10px;
+  font-family: Georgia, serif;
+  min-height: 4em;
+  transition: background 0.4s ease;
+}
+#generate {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #444;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+#generate:hover {
+  background: #666;
+}
+#history {
+  margin-top: 30px;
+  text-align: left;
+  max-width: 400px;
+}
+.history-item {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
 }
 .serene {
-  background: linear-gradient(to right, #a8c0ff, #f6f8ff);
+  background: linear-gradient(135deg, #a8c0ff, #f6f8ff);
   color: #033;
 }
 .chaotic {
-  background: linear-gradient(to right, #ff0000, #000);
+  background: linear-gradient(135deg, #ff4e50, #000);
   color: #fff;
-  animation: shake 0.5s infinite;
+  animation: shake 0.4s infinite;
 }
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -45,11 +79,11 @@ body {
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 .hopeful {
-  background: linear-gradient(to right, #c2ffd8, #465efb);
+  background: linear-gradient(135deg, #c2ffd8, #465efb);
   color: #033;
 }
 .nihilistic {
-  background: linear-gradient(to right, #222, #555);
+  background: linear-gradient(135deg, #222, #555);
   color: #ddd;
   font-style: italic;
 }

@@ -1,5 +1,46 @@
-document.getElementById('generate').addEventListener('click', async () => {
-  const depth = document.getElementById('depth').value;
+const depthInput = document.getElementById('depth');
+const depthLabel = document.getElementById('depth-label');
+const generateBtn = document.getElementById('generate');
+const historyEl = document.getElementById('history');
+const personalities = document.querySelectorAll('input[name="personality"]');
+
+const microcopy = {
+  genz: {
+    button: 'Hit this baddie 🚀',
+    instructions: 'Click this baddie to get your brain juice \uD83E\uDDE0\uD83D\uDCA5'
+  },
+  millennial: {
+    button: 'Generate Thought',
+    instructions: "Hit the button and vibe with a lil' insight."
+  },
+  boomer: {
+    button: 'Get Wisdom',
+    instructions: 'Push the button, get a nugget of wisdom.'
+  }
+};
+
+const history = [];
+
+function updateMicrocopy() {
+  const p = document.querySelector('input[name="personality"]:checked').value;
+  generateBtn.textContent = microcopy[p].button;
+  document.getElementById('instructions').textContent = microcopy[p].instructions;
+}
+
+function updateDepthLabel() {
+  depthLabel.textContent = depthInput.value;
+}
+
+function addToHistory(text, mood) {
+  history.unshift({ text, mood });
+  if (history.length > 5) history.pop();
+  historyEl.innerHTML = history
+    .map(item => `<div class="history-item ${item.mood}">${item.text}</div>`) 
+    .join('');
+}
+
+generateBtn.addEventListener('click', async () => {
+  const depth = depthInput.value;
   const personality = document.querySelector('input[name="personality"]:checked').value;
   const res = await fetch('/api/generate', {
     method: 'POST',
@@ -11,5 +52,13 @@ document.getElementById('generate').addEventListener('click', async () => {
     const thoughtEl = document.getElementById('thought');
     thoughtEl.className = data.mood;
     thoughtEl.textContent = data.text;
+    addToHistory(data.text, data.mood);
   }
+});
+
+personalities.forEach(el => el.addEventListener('change', updateMicrocopy));
+depthInput.addEventListener('input', updateDepthLabel);
+window.addEventListener('DOMContentLoaded', () => {
+  updateMicrocopy();
+  updateDepthLabel();
 });
