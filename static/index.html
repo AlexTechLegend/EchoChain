@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoChain</title>
+<style>
+body{font-family:sans-serif;margin:20px;padding:0;text-align:center}
+#record{font-size:20px;padding:10px 20px}
+#mood,#depth,#persona{margin:10px}
+</style>
+</head>
+<body>
+<h1 id="title">Speak Your Mind</h1>
+<button id="record">Hold to Record</button><br>
+<select id="mood">
+<option value="happy">😊 Happy</option>
+<option value="sad">😔 Sad</option>
+<option value="angry">😡 Angry</option>
+<option value="overwhelmed">🤯 Overwhelmed</option>
+<option value="neutral" selected>😶 Neutral</option>
+</select>
+<label>Depth <input type="range" id="depth" min="1" max="5" value="1"></label>
+<select id="persona">
+<option value="genz">🧢 Gen Z</option>
+<option value="millennial">📱 Millennial</option>
+<option value="boomer">📻 Boomer</option>
+</select>
+<audio id="playback" controls></audio>
+<script src="app.js"></script>
+</body>
+</html>
