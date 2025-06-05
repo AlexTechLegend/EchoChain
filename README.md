@@ -4,7 +4,7 @@ Skeleton implementation of the EchoChain app.
 
 ## Quick Setup
 
-Run `setup.sh` to clone the repo, install dependencies, build the web and desktop versions, and optionally launch the app.
+Run `setup.sh` to clone the repo, install dependencies, build the web app, and optionally launch a local preview.
 
 ```bash
 ./setup.sh [repo-url] [target-dir]
@@ -26,20 +26,6 @@ By default it clones `https://github.com/yourname/EchoChain.git` into `echochain
    ```bash
    npm run serve
    ```
-
-### Desktop
-
-Run the Electron desktop shell alongside the Vite dev server:
-
-```bash
-npm run electron:dev
-```
-
-Build a production desktop bundle:
-
-```bash
-npm run electron:build
-```
 
 ## API
 

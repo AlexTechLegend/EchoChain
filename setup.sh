@@ -18,12 +18,9 @@ npm install
 echo "Building web app..."
 npm run build
 
-echo "Packaging desktop app..."
-npm run electron:build
-
-read -p "Launch desktop app now? (y/N) " answer
+read -p "Launch dev server now? (y/N) " answer
 if [[ "$answer" =~ ^[Yy]$ ]]; then
-  npm run electron:dev
+  npm run preview
 else
-  echo "Done. Run 'npm run electron:dev' inside $TARGET_DIR to start the app." 
+  echo "Done. Run 'npm run preview' inside $TARGET_DIR to serve the built app."
 fi
