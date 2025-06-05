@@ -6,8 +6,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "serve": "wrangler dev"
+    "serve": "wrangler dev",
+    "electron:dev": "vite & electron .",
+    "electron:build": "vite build && electron-builder"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "electron": "^28.2.5",
+    "electron-builder": "^24.6.4"
+  }
 }
